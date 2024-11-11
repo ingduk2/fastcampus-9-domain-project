@@ -9,5 +9,6 @@ plugins {
 rootProject.name = "fastcampus-9-domain-project"
 
 include(
-    "part1-community-feed:ch2-oop"
+    "part1-community-feed:ch2-oop",
+    "part1-community-feed:community-feed",
 )
