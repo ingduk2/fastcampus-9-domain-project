@@ -1,10 +1,10 @@
 package org.fastcampus.student_management.ui.student;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
 import org.fastcampus.student_management.application.student.StudentService;
 import org.fastcampus.student_management.application.student.dto.StudentInfoDto;
 import org.fastcampus.student_management.ui.UserInputType;
+
+import java.util.Scanner;
 
 public class StudentController {
     private final Scanner scanner = new Scanner(System.in);

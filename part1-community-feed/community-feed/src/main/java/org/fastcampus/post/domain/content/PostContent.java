@@ -5,7 +5,7 @@ public class PostContent extends Content {
     public static final int MIN_POST_LENGTH = 5;
     public static final int MAX_POST_LENGTH = 500;
 
-    public PostContent(String content, String content1) {
+    public PostContent(String content) {
         super(content);
     }
 

@@ -45,4 +45,16 @@ public class Post {
         this.state = state;
         this.content.updateContent(updateContent);
     }
+
+    public PostPublicationState getState() {
+        return state;
+    }
+
+    public int getLikeCount() {
+        return likeCount.getCount();
+    }
+
+    public String getContent() {
+        return content.getContentText();
+    }
 }

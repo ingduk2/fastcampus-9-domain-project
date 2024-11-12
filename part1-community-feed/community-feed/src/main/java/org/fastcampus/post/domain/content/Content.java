@@ -3,8 +3,8 @@ package org.fastcampus.post.domain.content;
 import org.fastcampus.post.domain.common.DatetimeInfo;
 
 public abstract class Content {
-    String contentText;
-    final DatetimeInfo datetimeInfo;
+    protected String contentText;
+    protected final DatetimeInfo datetimeInfo;
 
     public Content(String contentText) {
         checkText(contentText);

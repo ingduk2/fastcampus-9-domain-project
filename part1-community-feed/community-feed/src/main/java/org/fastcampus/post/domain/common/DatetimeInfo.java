@@ -12,13 +12,21 @@ public class DatetimeInfo {
         this.dateTime = LocalDateTime.now();
     }
 
+    public DatetimeInfo(boolean isEdited, LocalDateTime dateTime) {
+        this.isEdited = isEdited;
+        this.dateTime = dateTime;
+    }
+
     public void updateEditDateTime() {
         this.isEdited = true;
         this.dateTime = LocalDateTime.now();
     }
 
-    public DatetimeInfo(boolean isEdited, LocalDateTime dateTime) {
-        this.isEdited = isEdited;
-        this.dateTime = dateTime;
+    public boolean isEdited() {
+        return isEdited;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 }

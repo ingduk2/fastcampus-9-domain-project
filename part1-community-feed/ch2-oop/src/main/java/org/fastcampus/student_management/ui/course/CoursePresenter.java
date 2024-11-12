@@ -1,7 +1,8 @@
 package org.fastcampus.student_management.ui.course;
 
-import java.util.List;
 import org.fastcampus.student_management.application.course.dto.CourseInfoDto;
+
+import java.util.List;
 
 public class CoursePresenter {
 

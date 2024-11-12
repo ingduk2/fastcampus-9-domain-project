@@ -1,11 +1,12 @@
 package org.fastcampus.student_management.ui.course;
 
-import java.util.List;
-import java.util.Scanner;
 import org.fastcampus.student_management.application.course.CourseService;
 import org.fastcampus.student_management.application.course.dto.CourseInfoDto;
 import org.fastcampus.student_management.domain.DayOfWeek;
 import org.fastcampus.student_management.ui.student.StudentPresenter;
+
+import java.util.List;
+import java.util.Scanner;
 
 public class CourseController {
 
