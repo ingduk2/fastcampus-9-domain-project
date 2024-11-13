@@ -24,7 +24,7 @@ class CommentTest {
     class Constructor {
         static Stream<Arguments> source() {
             User user = new User(1L, new UserInfo("name", "url"));
-            Post post = new Post(1L, user, new PostContent("postContent"));
+            Post post = Post.createDefaultPost(1L, user, "postContent");
             CommentContent commentContent = new CommentContent("commandContent");
             return Stream.of(
                     Arguments.of(1L, null, null, null),
@@ -137,14 +137,14 @@ class CommentTest {
     }
 
     private Comment createComment(User user) {
-        Post post = new Post(1L, user, new PostContent("postContent"));
+        Post post = Post.createDefaultPost(1L, user, "postContent");
         CommentContent commentContent = new CommentContent("commandContent");
         return new Comment(1L, post, user, commentContent);
     }
 
     private static Comment createComment(long commentId, long userId) {
         User user = new User(userId, new UserInfo("name", "url"));
-        Post post = new Post(1L, user, new PostContent("postContent"));
+        Post post = Post.createDefaultPost(1L, user, "postContent");
         CommentContent commentContent = new CommentContent("commandContent");
         return new Comment(commentId, post, user, commentContent);
     }

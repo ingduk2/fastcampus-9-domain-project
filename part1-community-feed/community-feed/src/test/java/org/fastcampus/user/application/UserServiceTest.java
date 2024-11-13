@@ -1,5 +1,6 @@
 package org.fastcampus.user.application;
 
+import org.fastcampus.fake.FakeObjectFactory;
 import org.fastcampus.user.domain.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -10,12 +11,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class UserServiceTest {
 
     private UserService userService;
-    private UserRepository userRepository;
 
     @BeforeEach
     void setUp() {
-        userRepository = new FakeUserRepository();
-        userService = new UserService(userRepository);
+        userService = FakeObjectFactory.getUserService();
     }
 
     @Nested

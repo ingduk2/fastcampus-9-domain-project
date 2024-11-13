@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
-class FakeUserRepository implements UserRepository {
+public class FakeUserRepository implements UserRepository {
 
     private final Map<Long, User> store = new HashMap<>();
     private final AtomicLong idGenerator = new AtomicLong(0);

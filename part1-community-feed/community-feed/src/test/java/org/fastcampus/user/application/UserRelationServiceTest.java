@@ -1,5 +1,6 @@
 package org.fastcampus.user.application;
 
+import org.fastcampus.fake.FakeObjectFactory;
 import org.fastcampus.user.domain.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -12,19 +13,14 @@ class UserRelationServiceTest {
 
     private UserRelationService userRelationService;
     private UserService userService;
-    private UserRepository userRepository;
-    private UserRelationRepository userRelationRepository;
 
     private User user1;
     private User user2;
 
     @BeforeEach
     void setUp() {
-        userRepository = new FakeUserRepository();
-        userRelationRepository = new FakeUserRelationRepository();
-
-        userService = new UserService(userRepository);
-        userRelationService = new UserRelationService(userService, userRelationRepository);
+        userService = FakeObjectFactory.getUserService();
+        userRelationService = FakeObjectFactory.getUserRelationService();
 
         initData();
     }
