@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserRelationId {
+public class UserRelationIdEntity {
     private Long followingUserId;
     private Long followerUserId;
 }
