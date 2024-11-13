@@ -1,6 +1,7 @@
 package org.fastcampus.user.application;
 
 import org.fastcampus.fake.FakeObjectFactory;
+import org.fastcampus.user.application.dto.CreateUserRequestDto;
 import org.fastcampus.user.domain.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -30,7 +31,7 @@ class UserServiceTest {
             // Then
             User foundUser = userService.getUser(result.getId());
             assertThat(result.getId()).isEqualTo(foundUser.getId());
-            assertThat(result.getInfo().getName()).isEqualTo("name1");
+            assertThat(result.getUserInfo().getName()).isEqualTo("name1");
         }
     }
 }

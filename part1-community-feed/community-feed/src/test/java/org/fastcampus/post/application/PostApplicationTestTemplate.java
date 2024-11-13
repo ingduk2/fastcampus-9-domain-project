@@ -1,7 +1,7 @@
 package org.fastcampus.post.application;
 
 import org.fastcampus.fake.FakeObjectFactory;
-import org.fastcampus.user.application.CreateUserRequestDto;
+import org.fastcampus.user.application.dto.CreateUserRequestDto;
 import org.fastcampus.user.application.UserService;
 import org.fastcampus.user.domain.User;
 

@@ -1,10 +1,10 @@
 package org.fastcampus.user.application;
 
+import org.fastcampus.user.application.interfaces.UserRepository;
 import org.fastcampus.user.domain.User;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class FakeUserRepository implements UserRepository {
@@ -20,13 +20,13 @@ public class FakeUserRepository implements UserRepository {
         }
 
         long id = idGenerator.incrementAndGet();
-        User newUser = new User(id, user.getInfo());
+        User newUser = new User(id, user.getUserInfo());
         store.put(id, newUser);
         return newUser;
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return Optional.ofNullable(store.get(id));
+    public User findById(Long id) {
+        return store.get(id);
     }
 }

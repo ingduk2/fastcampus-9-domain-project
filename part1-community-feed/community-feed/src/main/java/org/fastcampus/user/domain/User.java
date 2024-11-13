@@ -1,15 +1,23 @@
 package org.fastcampus.user.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import org.fastcampus.common.domain.PositiveIntegerCounter;
 
 import java.util.Objects;
 
+@Builder
+@AllArgsConstructor
+@Getter
 public class User {
 
+    @Getter
     private final Long id;
-    private final UserInfo info;
-    private final PositiveIntegerCounter followingCounter;
-    private final PositiveIntegerCounter followerCounter;
+    @Getter
+    private final UserInfo userInfo;
+    private final PositiveIntegerCounter followingCount;
+    private final PositiveIntegerCounter followerCount;
 
     public User(Long id, UserInfo userInfo) {
         if (userInfo == null) {
@@ -17,9 +25,9 @@ public class User {
         }
 
         this.id = id;
-        this.info = userInfo;
-        this.followingCounter = new PositiveIntegerCounter();
-        this.followerCounter = new PositiveIntegerCounter();
+        this.userInfo = userInfo;
+        this.followingCount = new PositiveIntegerCounter();
+        this.followerCount = new PositiveIntegerCounter();
     }
 
     public void follow(User targetUser) {
@@ -27,7 +35,7 @@ public class User {
             throw new IllegalArgumentException();
         }
 
-        followingCounter.increase();
+        followingCount.increase();
         targetUser.increaseFollowerCount();
     }
 
@@ -36,16 +44,16 @@ public class User {
             throw new IllegalArgumentException();
         }
 
-        followingCounter.decrease();
+        followingCount.decrease();
         targetUser.decreaseFollowerCount();
     }
 
     private void increaseFollowerCount() {
-        followerCounter.increase();
+        followerCount.increase();
     }
 
     private void decreaseFollowerCount() {
-        followerCounter.decrease();
+        followerCount.decrease();
     }
 
     @Override
@@ -61,19 +69,19 @@ public class User {
         return Objects.hashCode(id);
     }
 
-    public Long getId() {
-        return this.id;
-    }
-
     public int getFollowingCount() {
-        return followingCounter.getCount();
+        return followingCount.getCount();
     }
 
     public int getFollowerCount() {
-        return followerCounter.getCount();
+        return followerCount.getCount();
     }
 
-    public UserInfo getInfo() {
-        return info;
+    public String getName() {
+        return userInfo.getName();
+    }
+
+    public String getProfileImage() {
+        return userInfo.getProfileImageUrl();
     }
 }

@@ -4,8 +4,12 @@ public class PositiveIntegerCounter {
 
     private int count;
 
+    public PositiveIntegerCounter(int count) {
+        this.count = count;
+    }
+
     public PositiveIntegerCounter() {
-        this.count = 0;
+        this(0);
     }
 
     public void increase() {

@@ -1,4 +1,4 @@
-package org.fastcampus.user.application;
+package org.fastcampus.user.application.interfaces;
 
 import org.fastcampus.user.domain.User;
 

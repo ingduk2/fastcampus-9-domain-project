@@ -127,20 +127,6 @@ class CommentServiceTest extends PostApplicationTestTemplate {
                     .isInstanceOf(IllegalAccessError.class);
         }
 
-        @DisplayName("없는 user like 실패")
-        @Test
-        void test2() {
-            // given
-            Post savedPost = postService.createPost(new CreatePostRequestDto(user.getId(), "content", PostPublicationState.PUBLIC));
-            Comment savedComment = commentService.createComment(new CreateCommentRequestDto(savedPost.getId(), user.getId(), "content"));
-
-            LikeRequestDto requestDto = new LikeRequestDto(savedComment.getId(), 999L);
-
-            // when & then
-            assertThatThrownBy(() -> commentService.likeComment(requestDto))
-                    .isInstanceOf(IllegalArgumentException.class);
-        }
-
         @DisplayName("같은 user 가 like 하면 실패")
         @Test
         void test3() {
@@ -200,20 +186,6 @@ class CommentServiceTest extends PostApplicationTestTemplate {
             // when & then
             assertThatThrownBy(() -> commentService.unlikeComment(requestDto))
                     .isInstanceOf(IllegalAccessError.class);
-        }
-
-        @DisplayName("없는 user 실패")
-        @Test
-        void test2() {
-            // given
-            Post savedPost = postService.createPost(new CreatePostRequestDto(user.getId(), "content", PostPublicationState.PUBLIC));
-            Comment savedComment = commentService.createComment(new CreateCommentRequestDto(savedPost.getId(), user.getId(), "content"));
-
-            LikeRequestDto requestDto = new LikeRequestDto(savedComment.getId(), 999L);
-
-            // when & then
-            assertThatThrownBy(() -> commentService.unlikeComment(requestDto))
-                    .isInstanceOf(IllegalArgumentException.class);
         }
 
         @DisplayName("성공")

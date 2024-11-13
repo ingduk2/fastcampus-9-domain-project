@@ -9,6 +9,8 @@ import org.fastcampus.post.repository.FakePostRepository;
 import org.fastcampus.post.application.interfaces.LikeRepository;
 import org.fastcampus.post.application.interfaces.PostRepository;
 import org.fastcampus.user.application.*;
+import org.fastcampus.user.application.interfaces.UserRelationRepository;
+import org.fastcampus.user.application.interfaces.UserRepository;
 
 public class FakeObjectFactory {
 
