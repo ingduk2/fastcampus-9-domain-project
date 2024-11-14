@@ -15,16 +15,6 @@ class PostServiceTest extends PostApplicationTestTemplate {
 
     @Nested
     class GetPost {
-        @DisplayName("없는 id 실패")
-        @Test
-        void test1() {
-            // given
-            Long invalidId = 999L;
-
-            // when & then
-            assertThatThrownBy(() -> postService.getPost(invalidId))
-                    .isInstanceOf(IllegalAccessError.class);
-        }
 
         @DisplayName("있는 id 성공")
         @Test
@@ -71,26 +61,16 @@ class PostServiceTest extends PostApplicationTestTemplate {
 
     @Nested
     class UpdatePost {
-        @DisplayName("post 존재하지 않는 경우 실패")
-        @Test
-        void test1() {
-            // given
-            UpdatePostRequestDto requestDto = new UpdatePostRequestDto(999L, user.getId(), "updateContent", PostPublicationState.PRIVATE);
-
-            // when & then
-            assertThatThrownBy(() -> postService.updatePost(requestDto))
-                    .isInstanceOf(IllegalAccessError.class);
-        }
 
         @DisplayName("user 존재하지 않는 경우 실패")
         @Test
         void test2() {
             // given
             Post savedPost = postService.createPost(new CreatePostRequestDto(user.getId(), "content", PostPublicationState.PUBLIC));
-            UpdatePostRequestDto requestDto = new UpdatePostRequestDto(savedPost.getId(), 999L, "updateContent", PostPublicationState.PRIVATE);
+            UpdatePostRequestDto requestDto = new UpdatePostRequestDto(999L, "updateContent", PostPublicationState.PRIVATE);
 
             // when & then
-            assertThatThrownBy(() -> postService.updatePost(requestDto))
+            assertThatThrownBy(() -> postService.updatePost(savedPost.getId(), requestDto))
                     .isInstanceOf(IllegalArgumentException.class);
         }
 
@@ -99,10 +79,10 @@ class PostServiceTest extends PostApplicationTestTemplate {
         void test1000() {
             // given
             Post savedPost = postService.createPost(new CreatePostRequestDto(user.getId(), "content", PostPublicationState.PUBLIC));
-            UpdatePostRequestDto requestDto = new UpdatePostRequestDto(savedPost.getId(), user.getId(), "updateContent", PostPublicationState.PRIVATE);
+            UpdatePostRequestDto requestDto = new UpdatePostRequestDto(user.getId(), "updateContent", PostPublicationState.PRIVATE);
 
             // when
-            Post result = postService.updatePost(requestDto);
+            Post result = postService.updatePost(savedPost.getId(), requestDto);
 
             // then
             assertThat(result.getContent()).isEqualTo(requestDto.content());

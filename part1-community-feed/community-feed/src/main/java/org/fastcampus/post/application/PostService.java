@@ -8,7 +8,9 @@ import org.fastcampus.post.application.interfaces.PostRepository;
 import org.fastcampus.post.domain.Post;
 import org.fastcampus.user.application.UserService;
 import org.fastcampus.user.domain.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PostService {
 
     private final UserService userService;
@@ -22,7 +24,7 @@ public class PostService {
     }
 
     public Post getPost(Long id) {
-        return postRepository.findById(id).orElseThrow(IllegalAccessError::new);
+        return postRepository.findById(id);
     }
 
     public Post createPost(CreatePostRequestDto dto) {
@@ -31,8 +33,8 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public Post updatePost(UpdatePostRequestDto dto) {
-        Post post = getPost(dto.postId());
+    public Post updatePost(Long postId, UpdatePostRequestDto dto) {
+        Post post = getPost(postId);
         User user = userService.getUser(dto.userId());
 
         post.updatePost(user, dto.content(), dto.state());
