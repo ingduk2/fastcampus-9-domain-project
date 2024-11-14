@@ -22,6 +22,13 @@ dependencies {
     // lombok
     implementation("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+    testImplementation("org.projectlombok:lombok")
+    testAnnotationProcessor("org.projectlombok:lombok")
+
+    // test
+    testImplementation("io.rest-assured:rest-assured:5.5.0")
+    testRuntimeOnly("com.h2database:h2")
+    implementation("com.google.guava:guava:33.3.0-jre")
 }
 
 /**

@@ -12,6 +12,8 @@ public interface JpaPostRepository extends JpaRepository<PostEntity, Long> {
     @Query("SELECT p.id FROM PostEntity p WHERE p.author.id = :authorId")
     List<Long> findAllPostIdsByAuthorId(Long authorId);
 
+    List<PostEntity> findAllByAuthorId(Long authorId);
+
     @Modifying
     @Query(value = "UPDATE PostEntity p " +
             "SET p.content = :#{#postEntity.getContent()}, " +
