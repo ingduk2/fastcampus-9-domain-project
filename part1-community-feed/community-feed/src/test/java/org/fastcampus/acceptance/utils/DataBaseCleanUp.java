@@ -1,4 +1,4 @@
-package org.fastcampus.acceptance;
+package org.fastcampus.acceptance.utils;
 
 import com.google.common.base.CaseFormat;
 import jakarta.persistence.*;
@@ -58,7 +58,7 @@ public class DataBaseCleanUp implements InitializingBean {
             boolean isEmbeddedId = hasEmbeddedId(entityClass);
 
             entityManager.createNativeQuery("TRUNCATE TABLE " + tableName).executeUpdate();
-            if (!isEmbeddedId) {
+            if (!isEmbeddedId && isAutoIncrementId(entityClass)) {
                 String idColumnName = getIdFieldName(entityClass);
                 entityManager.createNativeQuery("ALTER TABLE " + tableName + " ALTER COLUMN " + idColumnName + " RESTART WITH 1").executeUpdate();
             }
@@ -101,5 +101,11 @@ public class DataBaseCleanUp implements InitializingBean {
                 .map(fieldName -> CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, fieldName)) // CamelCase를 snake_case로 변환
                 .findFirst() // 첫 번째 ID 필드만 반환합니다.
                 .orElseThrow(() -> new IllegalStateException("ID field not found for entity: " + entityClass.getSimpleName()));
+    }
+
+    private boolean isAutoIncrementId(Class<?> entityClass) {
+        return Arrays.stream(entityClass.getDeclaredFields())
+                .filter(field -> field.isAnnotationPresent(Id.class))
+                .anyMatch(field -> field.getType().equals(Long.class) || field.getType().equals(Integer.class));
     }
 }
