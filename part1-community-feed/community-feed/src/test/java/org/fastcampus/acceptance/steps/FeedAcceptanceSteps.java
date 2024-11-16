@@ -22,15 +22,29 @@ public class FeedAcceptanceSteps {
                 .getObject("value", Long.class);
     }
 
-    public static List<GetPostContentResponseDto> requestFeed(Long userId) {
+    public static List<GetPostContentResponseDto> requestFeed(String token) {
         return RestAssured
                 .given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header("Authorization", "Bearer " + token)
                 .when()
-                .get("/feed/{userId}", userId)
+                .get("/feed")
                 .then().log().all()
                 .extract()
                 .jsonPath()
                 .getList("value", GetPostContentResponseDto.class);
+    }
+
+    public static Integer requestFeedGetResponseCode(String token) {
+        return RestAssured
+                .given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header("Authorization", "Bearer " + token)
+                .when()
+                .get("/feed")
+                .then().log().all()
+                .extract()
+                .jsonPath()
+                .get("code");
     }
 }

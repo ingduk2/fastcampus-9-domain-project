@@ -19,6 +19,11 @@ dependencies {
     annotationProcessor ("jakarta.annotation:jakarta.annotation-api")
     annotationProcessor ("jakarta.persistence:jakarta.persistence-api")
 
+    // jwt
+    implementation("io.jsonwebtoken:jjwt-api:0.12.6")
+    implementation("io.jsonwebtoken:jjwt-impl:0.12.6")
+    runtimeOnly("io.jsonwebtoken:jjwt-gson:0.12.6")
+
     // lombok
     implementation("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")

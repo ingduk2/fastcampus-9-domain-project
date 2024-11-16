@@ -13,3 +13,6 @@ spring:
       hibernate:
         format_sql: true
     open-in-view: false
+
+jwt:
+  secret-key: vEXfJRg6lNxnbV2fNaj5rPNEWwiK4Nt/pb8wiwpoRKw2vzDyhB3d8OIUkzWLWcYVMZaOCr+6vMFXjL36HzukPA==
