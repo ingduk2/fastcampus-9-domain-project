@@ -10,6 +10,9 @@ import org.fastcampus.common.repository.TimeBaseEntity;
 import org.fastcampus.user.domain.User;
 import org.fastcampus.user.domain.UserInfo;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "community_user")
@@ -26,6 +29,10 @@ public class UserEntity extends TimeBaseEntity {
     private String profileImage;
     private Integer followerCount;
     private Integer followingCount;
+
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDate regDate;
 
     public UserEntity(User user) {
         this.id = user.getId();

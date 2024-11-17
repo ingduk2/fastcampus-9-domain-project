@@ -1,6 +1,6 @@
 http POST localhost:8080/user \
 name=user1 \
-userProfileUrl=url1
+profileImageUrl=url1
 
 http POST localhost:8080/relation/follow \
 userId=1 \
