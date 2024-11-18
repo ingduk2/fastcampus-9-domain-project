@@ -1,28 +1,42 @@
-package org.fastcampus.acceptance;
+package org.fastcampus.acceptance.feed;
 
-import org.fastcampus.acceptance.utils.AcceptanceTestTemplate;
+import org.fastcampus.acceptance.utils.AcceptanceTest;
+import org.fastcampus.acceptance.utils.AcceptanceDataLoader;
 import org.fastcampus.auth.application.dto.LoginRequestDto;
 import org.fastcampus.post.application.dto.CreatePostRequestDto;
 import org.fastcampus.post.domain.content.PostPublicationState;
 import org.fastcampus.post.ui.dto.GetPostContentResponseDto;
+import org.fastcampus.user.application.dto.FollowUserRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.fastcampus.acceptance.steps.FeedAcceptanceSteps.*;
 import static org.fastcampus.acceptance.steps.LoginAcceptanceSteps.requestLogin;
+import static org.fastcampus.acceptance.steps.UserAcceptanceSteps.followUser;
 
-class FeedAcceptanceTest extends AcceptanceTestTemplate {
+@AcceptanceTest
+class FeedAcceptanceTest {
+
+    @Autowired
+    private AcceptanceDataLoader acceptanceDataLoader;
+
     /**
      * User1 --- follow ---> User2
      * User1 --- follow ---> USer3
      */
     @BeforeEach
     void setUp() {
-
+        // user 1, 2, 3 생성
+        for (int i = 1; i < 4; i++) {
+            acceptanceDataLoader.createUser("user" + i + "@test.com");
+        }
+        followUser(new FollowUserRequestDto(1L, 2L));
+        followUser(new FollowUserRequestDto(1L, 3L));
     }
 
     /**

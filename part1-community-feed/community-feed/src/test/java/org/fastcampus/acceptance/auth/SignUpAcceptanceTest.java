@@ -1,25 +1,31 @@
 package org.fastcampus.acceptance.auth;
 
 import org.fastcampus.acceptance.steps.SignUpAcceptanceSteps;
-import org.fastcampus.acceptance.utils.AcceptanceTestTemplate;
+import org.fastcampus.acceptance.utils.AcceptanceTest;
+import org.fastcampus.acceptance.utils.AcceptanceDataLoader;
 import org.fastcampus.auth.application.dto.CreateUserAuthRequestDto;
 import org.fastcampus.auth.application.dto.SendEmailRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.fastcampus.acceptance.steps.SignUpAcceptanceSteps.requestSendEmail;
 import static org.fastcampus.acceptance.steps.SignUpAcceptanceSteps.requestVerifyEmail;
 
-public class SignUpAcceptanceTest extends AcceptanceTestTemplate {
+@AcceptanceTest
+public class SignUpAcceptanceTest {
 
     private final String email = "email@email.com";
 
+    @Autowired
+    private AcceptanceDataLoader acceptanceDataLoader;
+
     @BeforeEach
     void setUp() {
-        this.cleanUp();
+
     }
 
     @Nested
@@ -34,7 +40,7 @@ public class SignUpAcceptanceTest extends AcceptanceTestTemplate {
             Integer code = requestSendEmail(dto);
 
             // then
-            String token = getEmailToken(email);
+            String token = acceptanceDataLoader.getEmailToken(email);
             assertThat(token).isNotNull();
             assertThat(code).isEqualTo(0);
         }
@@ -64,13 +70,13 @@ public class SignUpAcceptanceTest extends AcceptanceTestTemplate {
         void givenSendEmail_whenVerifyEmail_thenEmailVerified() {
             // 1. sendEmail 요청
             requestSendEmail(new SendEmailRequestDto(email));
-            String token = getEmailToken(email);
+            String token = acceptanceDataLoader.getEmailToken(email);
 
             // 2. verifyEmail
             Integer code = requestVerifyEmail(email, token);
 
             // then
-            boolean isEmailVerified = isEmailVerified(email);
+            boolean isEmailVerified = acceptanceDataLoader.isEmailVerified(email);
             assertThat(code).isEqualTo(0);
             assertThat(isEmailVerified).isTrue();
         }
@@ -88,7 +94,7 @@ public class SignUpAcceptanceTest extends AcceptanceTestTemplate {
             Integer code = requestVerifyEmail(email, "wrong token");
 
             // then
-            boolean isEmailVerified = isEmailVerified(email);
+            boolean isEmailVerified = acceptanceDataLoader.isEmailVerified(email);
             assertThat(code).isEqualTo(500);
             assertThat(isEmailVerified).isFalse();
         }
@@ -102,7 +108,7 @@ public class SignUpAcceptanceTest extends AcceptanceTestTemplate {
         void givenSendEmailVerified_whenVerifyAgain_thenThrowError() {
             // given
             requestSendEmail(new SendEmailRequestDto(email));
-            String token = getEmailToken(email);
+            String token = acceptanceDataLoader.getEmailToken(email);
             requestVerifyEmail(email, token);
 
             // when
@@ -139,7 +145,7 @@ public class SignUpAcceptanceTest extends AcceptanceTestTemplate {
         void test1() {
             // 1. sendEmail
             requestSendEmail(new SendEmailRequestDto(email));
-            String token = getEmailToken(email);
+            String token = acceptanceDataLoader.getEmailToken(email);
 
             // 2. verifyEmail
             requestVerifyEmail(email, token);
@@ -150,7 +156,7 @@ public class SignUpAcceptanceTest extends AcceptanceTestTemplate {
 
             // then
             assertThat(code).isEqualTo(0);
-            Long userId = getUserId(email);
+            Long userId = acceptanceDataLoader.getUserId(email);
             assertThat(userId).isEqualTo(1L);
         }
 

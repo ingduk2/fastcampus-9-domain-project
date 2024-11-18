@@ -1,24 +1,29 @@
 package org.fastcampus.acceptance.auth;
 
-import org.fastcampus.acceptance.utils.AcceptanceTestTemplate;
+import org.fastcampus.acceptance.utils.AcceptanceTest;
+import org.fastcampus.acceptance.utils.AcceptanceDataLoader;
 import org.fastcampus.auth.application.dto.LoginRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.fastcampus.acceptance.steps.LoginAcceptanceSteps.requestLogin;
 import static org.fastcampus.acceptance.steps.LoginAcceptanceSteps.requestLoginGetResponseCode;
 
-public class LoginAcceptanceTest extends AcceptanceTestTemplate {
+@AcceptanceTest
+public class LoginAcceptanceTest {
 
     private final String email = "email@email.com";
 
+    @Autowired
+    private AcceptanceDataLoader acceptanceDataLoader;
+
     @BeforeEach
     void setUp() {
-        this.cleanUp();
-        this.createUser(email);
+        acceptanceDataLoader.createUser(email);
     }
 
     @Nested

@@ -13,12 +13,11 @@ public class AcceptanceTestTemplate {
     private DataBaseCleanUp dataBaseCleanUp;
 
     @Autowired
-    private DataLoader dataLoader;
+    private AcceptanceDataLoader acceptanceDataLoader;
 
     @BeforeEach
     void init() {
         dataBaseCleanUp.execute();
-        dataLoader.loadData();
     }
 
     protected void cleanUp() {
@@ -26,18 +25,18 @@ public class AcceptanceTestTemplate {
     }
 
     protected String getEmailToken(String email) {
-        return dataLoader.getEmailToken(email);
+        return acceptanceDataLoader.getEmailToken(email);
     }
 
     protected boolean isEmailVerified(String email) {
-        return dataLoader.isEmailVerified(email);
+        return acceptanceDataLoader.isEmailVerified(email);
     }
 
     protected Long getUserId(String email) {
-        return dataLoader.getUserId(email);
+        return acceptanceDataLoader.getUserId(email);
     }
 
     protected void createUser(String email) {
-        dataLoader.createUser(email);
+        acceptanceDataLoader.createUser(email);
     }
 }
