@@ -8,6 +8,7 @@ import org.fastcampus.auth.repository.jpa.JpaUserAuthRepository;
 import org.fastcampus.user.application.interfaces.UserRepository;
 import org.fastcampus.user.domain.User;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
@@ -25,6 +26,7 @@ public class UserAuthRepositoryImpl implements UserAuthRepository {
     }
 
     @Override
+    @Transactional
     public UserAuth loginUser(String email, String password) {
         UserAuthEntity userAuthEntity = jpaUserAuthRepository.findById(email).orElseThrow();
         UserAuth userAuth = userAuthEntity.toUserAuth();
@@ -33,6 +35,7 @@ public class UserAuthRepositoryImpl implements UserAuthRepository {
             throw new IllegalArgumentException("비밀번호가 다릅니다");
         }
 
+        userAuthEntity.updateLastLoginAt();
         return userAuth;
     }
 }

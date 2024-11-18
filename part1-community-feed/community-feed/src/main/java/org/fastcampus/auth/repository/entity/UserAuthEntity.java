@@ -8,19 +8,23 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.fastcampus.auth.domain.UserAuth;
+import org.fastcampus.common.repository.TimeBaseEntity;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "community_user_auth")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class UserAuthEntity {
+public class UserAuthEntity extends TimeBaseEntity {
 
     @Id
     private String email;
     private String password;
     private String role;
     private Long userId;
+    private LocalDateTime lastLoginDt;
 
     public UserAuthEntity(UserAuth userAuth, Long userId) {
         this.email = userAuth.getEmail();
@@ -31,5 +35,9 @@ public class UserAuthEntity {
 
     public UserAuth toUserAuth() {
         return new UserAuth(email, password, role, userId);
+    }
+
+    public void updateLastLoginAt() {
+        this.lastLoginDt = LocalDateTime.now();
     }
 }

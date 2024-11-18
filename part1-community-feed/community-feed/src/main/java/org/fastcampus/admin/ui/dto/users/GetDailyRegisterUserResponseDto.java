@@ -1,4 +1,4 @@
-package org.fastcampus.admin.ui.dto;
+package org.fastcampus.admin.ui.dto.users;
 
 import java.time.LocalDate;
 
