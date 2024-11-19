@@ -1,10 +1,8 @@
-package org.fastcampus.admin.ui.dto.users;
+package org.fastcampus.admin.ui.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -12,5 +10,5 @@ import java.util.List;
 public class GetTableListResponse<T> {
 
     private int totalCount;
-    private List<T> tableData;
+    private T tableData;
 }
