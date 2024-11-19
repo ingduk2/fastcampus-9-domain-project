@@ -1,6 +1,9 @@
 package org.fastcampus.acceptance.auth;
 
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import org.fastcampus.acceptance.steps.SignUpAcceptanceSteps;
+import org.fastcampus.acceptance.utils.AcceptanceResponse;
 import org.fastcampus.acceptance.utils.AcceptanceTest;
 import org.fastcampus.acceptance.utils.AcceptanceDataLoader;
 import org.fastcampus.auth.application.dto.CreateUserAuthRequestDto;
@@ -152,12 +155,12 @@ public class SignUpAcceptanceTest {
 
             // 3. registerUser
             CreateUserAuthRequestDto dto = new CreateUserAuthRequestDto(email, "password", "USER", "name", "profileImageUrl");
-            Integer code = SignUpAcceptanceSteps.requestRegisterUser(dto);
+            ExtractableResponse<Response> response = SignUpAcceptanceSteps.requestRegisterUser(dto);
 
             // then
-            assertThat(code).isEqualTo(0);
+            assertThat(AcceptanceResponse.getCode(response)).isEqualTo(0);
             Long userId = acceptanceDataLoader.getUserId(email);
-            assertThat(userId).isEqualTo(1L);
+            assertThat(userId).isEqualTo(AcceptanceResponse.getId(response));
         }
 
         @DisplayName("1. sendEmail 요청" +
@@ -170,10 +173,10 @@ public class SignUpAcceptanceTest {
 
             // 2. registerUser
             CreateUserAuthRequestDto dto = new CreateUserAuthRequestDto(email, "password", "USER", "name", "profileImageUrl");
-            Integer code = SignUpAcceptanceSteps.requestRegisterUser(dto);
+            ExtractableResponse<Response> response = SignUpAcceptanceSteps.requestRegisterUser(dto);
 
             // then
-            assertThat(code).isEqualTo(400);
+            assertThat(AcceptanceResponse.getCode(response)).isEqualTo(400);
         }
     }
 }

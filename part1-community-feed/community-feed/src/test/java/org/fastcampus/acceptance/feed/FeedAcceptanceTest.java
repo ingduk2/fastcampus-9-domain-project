@@ -12,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,18 +26,22 @@ class FeedAcceptanceTest {
     @Autowired
     private AcceptanceDataLoader acceptanceDataLoader;
 
+    private List<Long> userIds = new ArrayList<>();
+
     /**
      * User1 --- follow ---> User2
      * User1 --- follow ---> USer3
      */
     @BeforeEach
     void setUp() {
-        // user 1, 2, 3 생성
+        // user 3명 생성
+        userIds = new ArrayList<>();
         for (int i = 1; i < 4; i++) {
-            acceptanceDataLoader.createUser("user" + i + "@test.com");
+            Long userId = acceptanceDataLoader.createUser("user" + i + "@test.com");
+            userIds.add(userId);
         }
-        followUser(new FollowUserRequestDto(1L, 2L));
-        followUser(new FollowUserRequestDto(1L, 3L));
+        followUser(new FollowUserRequestDto(userIds.get(0), userIds.get(1)));
+        followUser(new FollowUserRequestDto(userIds.get(0), userIds.get(2)));
     }
 
     /**
@@ -50,7 +55,7 @@ class FeedAcceptanceTest {
         String token = requestLogin(new LoginRequestDto("user1@test.com", "password"));
 
         // User2 Post 작성
-        CreatePostRequestDto dto = new CreatePostRequestDto(2L, "user 1 can get this post", PostPublicationState.PUBLIC);
+        CreatePostRequestDto dto = new CreatePostRequestDto(userIds.get(1), "user 1 can get this post", PostPublicationState.PUBLIC);
         Long createdPostId = requestPost(dto);
 
         // User1 Feed 조회

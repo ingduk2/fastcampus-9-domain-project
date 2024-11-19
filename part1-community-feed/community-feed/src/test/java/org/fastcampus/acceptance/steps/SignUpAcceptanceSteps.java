@@ -1,6 +1,8 @@
 package org.fastcampus.acceptance.steps;
 
 import io.restassured.RestAssured;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import org.fastcampus.auth.application.dto.CreateUserAuthRequestDto;
 import org.fastcampus.auth.application.dto.SendEmailRequestDto;
 import org.springframework.http.MediaType;
@@ -31,15 +33,14 @@ public class SignUpAcceptanceSteps {
                 .jsonPath().get("code");
     }
 
-    public static Integer requestRegisterUser(CreateUserAuthRequestDto dto) {
+    public static ExtractableResponse<Response> requestRegisterUser(CreateUserAuthRequestDto dto) {
         return RestAssured
-                .given()
+                .given().log().all()
                 .body(dto)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
                 .post("/signup/register")
-                .then()
-                .extract()
-                .jsonPath().get("code");
+                .then().log().all()
+                .extract();
     }
 }

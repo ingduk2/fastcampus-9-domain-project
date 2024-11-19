@@ -1,5 +1,7 @@
 package org.fastcampus.acceptance.utils;
 
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.fastcampus.auth.application.dto.CreateUserAuthRequestDto;
@@ -36,10 +38,11 @@ public class AcceptanceDataLoader {
                 .getSingleResult();
     }
 
-    public void createUser(String email) {
+    public Long createUser(String email) {
         requestSendEmail(new SendEmailRequestDto(email));
         String token = getEmailToken(email);
         requestVerifyEmail(email, token);
-        requestRegisterUser(new CreateUserAuthRequestDto(email, "password", "USER", "name", "profileImageUrl"));
+        ExtractableResponse<Response> response = requestRegisterUser(new CreateUserAuthRequestDto(email, "password", "USER", "name", "profileImageUrl"));
+        return AcceptanceResponse.getId(response);
     }
 }
