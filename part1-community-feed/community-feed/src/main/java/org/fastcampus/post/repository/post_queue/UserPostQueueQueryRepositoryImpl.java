@@ -9,12 +9,10 @@ import org.fastcampus.post.repository.entity.post.QPostEntity;
 import org.fastcampus.post.repository.entity.post.QUserPostQueueEntity;
 import org.fastcampus.post.ui.dto.GetPostContentResponseDto;
 import org.fastcampus.user.repository.entity.QUserEntity;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Profile("!test")
 @Repository
 @RequiredArgsConstructor
 public class UserPostQueueQueryRepositoryImpl implements UserPostQueueQueryRepository {

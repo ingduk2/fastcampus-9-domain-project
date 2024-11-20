@@ -1,12 +1,10 @@
 package org.fastcampus.post.repository.post_queue;
 
 import org.fastcampus.post.repository.entity.post.PostEntity;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Profile("!test")
 @Repository
 public class UserQueueRedisRepositoryImpl implements UserQueueRedisRepository {
     @Override
