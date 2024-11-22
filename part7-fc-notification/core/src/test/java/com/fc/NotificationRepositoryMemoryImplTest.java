@@ -3,6 +3,9 @@ package com.fc;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -10,9 +13,12 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SpringBootApplication
+@SpringBootTest
 class NotificationRepositoryMemoryImplTest {
 
-    private final NotificationRepositoryMemoryImpl sut = new NotificationRepositoryMemoryImpl();
+    @Autowired
+    private NotificationRepository sut;
 
     private final Instant now = Instant.now();
     private final Instant deletedAt = Instant.now().plus(90, ChronoUnit.DAYS);
@@ -50,6 +56,8 @@ class NotificationRepositoryMemoryImplTest {
             Notification findedNotification = optionalNotification.get();
             assertThat(findedNotification.getId()).isEqualTo(savedNotification.getId());
             assertThat(findedNotification.getUserId()).isEqualTo(savedNotification.getUserId());
+            assertThat(findedNotification.getCreatedAt().getEpochSecond()).isEqualTo(now.getEpochSecond());
+            assertThat(findedNotification.getDeletedAt().getEpochSecond()).isEqualTo(deletedAt.getEpochSecond());
         }
     }
 

@@ -1,5 +1,7 @@
 package com.fc;
 
+import lombok.Getter;
+
 import java.time.Instant;
 
 enum NotificationType {
@@ -8,6 +10,7 @@ enum NotificationType {
     FOLLOW
 }
 
+@Getter
 public class Notification {
     private String id;
     private Long userId;
@@ -21,13 +24,5 @@ public class Notification {
         this.type = type;
         this.createdAt = createdAt;
         this.deletedAt = deletedAt;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public Long getUserId() {
-        return userId;
     }
 }
