@@ -21,6 +21,8 @@ class NotificationRepositoryMemoryImplTest {
     private NotificationRepository sut;
 
     private final Instant now = Instant.now();
+    private final Instant occurredAt = Instant.now();
+    private final Instant lastUpdatedAt = Instant.now();
     private final Instant deletedAt = Instant.now().plus(90, ChronoUnit.DAYS);
 
     @Nested
@@ -29,7 +31,9 @@ class NotificationRepositoryMemoryImplTest {
         @Test
         void test1000() {
             // given
-            Notification notification = new Notification("1", 1L, NotificationType.COMMENT, now, deletedAt);
+            Notification notification = new CommentNotification(
+                    "1", 1L, NotificationType.COMMENT, occurredAt, now, lastUpdatedAt, deletedAt, 2L, 3L, "comment"
+            );
 
             // when
             sut.save(notification);
@@ -46,7 +50,9 @@ class NotificationRepositoryMemoryImplTest {
         @Test
         void test1000() {
             // given
-            Notification notification = new Notification("1", 1L, NotificationType.COMMENT, now, deletedAt);
+            Notification notification = new CommentNotification(
+                    "1", 1L, NotificationType.COMMENT, occurredAt, now, lastUpdatedAt, deletedAt, 2L, 3L, "comment"
+            );
             Notification savedNotification = sut.save(notification);
 
             // when
@@ -56,7 +62,9 @@ class NotificationRepositoryMemoryImplTest {
             Notification findedNotification = optionalNotification.get();
             assertThat(findedNotification.getId()).isEqualTo(savedNotification.getId());
             assertThat(findedNotification.getUserId()).isEqualTo(savedNotification.getUserId());
+            assertThat(findedNotification.getOccurredAt().getEpochSecond()).isEqualTo(occurredAt.getEpochSecond());
             assertThat(findedNotification.getCreatedAt().getEpochSecond()).isEqualTo(now.getEpochSecond());
+            assertThat(findedNotification.getLastUpdatedAt().getEpochSecond()).isEqualTo(lastUpdatedAt.getEpochSecond());
             assertThat(findedNotification.getDeletedAt().getEpochSecond()).isEqualTo(deletedAt.getEpochSecond());
         }
     }
@@ -67,7 +75,9 @@ class NotificationRepositoryMemoryImplTest {
         @Test
         void test1000() {
             // given
-            Notification notification = new Notification("1", 1L, NotificationType.COMMENT, now, deletedAt);
+            Notification notification = new CommentNotification(
+                    "1", 1L, NotificationType.COMMENT, occurredAt, now, lastUpdatedAt, deletedAt, 2L, 3L, "comment"
+            );
             Notification savedNotification = sut.save(notification);
 
             // when
