@@ -32,7 +32,7 @@ class NotificationRepositoryMemoryImplTest {
         void test1000() {
             // given
             Notification notification = new CommentNotification(
-                    "1", 1L, NotificationType.COMMENT, occurredAt, now, lastUpdatedAt, deletedAt, 2L, 3L, "comment"
+                    "1", 1L, NotificationType.COMMENT, occurredAt, now, lastUpdatedAt, deletedAt, 2L, 3L, "comment", 4L
             );
 
             // when
@@ -51,7 +51,7 @@ class NotificationRepositoryMemoryImplTest {
         void test1000() {
             // given
             Notification notification = new CommentNotification(
-                    "1", 1L, NotificationType.COMMENT, occurredAt, now, lastUpdatedAt, deletedAt, 2L, 3L, "comment"
+                    "1", 1L, NotificationType.COMMENT, occurredAt, now, lastUpdatedAt, deletedAt, 2L, 3L, "comment", 4L
             );
             Notification savedNotification = sut.save(notification);
 
@@ -76,7 +76,7 @@ class NotificationRepositoryMemoryImplTest {
         void test1000() {
             // given
             Notification notification = new CommentNotification(
-                    "1", 1L, NotificationType.COMMENT, occurredAt, now, lastUpdatedAt, deletedAt, 2L, 3L, "comment"
+                    "1", 1L, NotificationType.COMMENT, occurredAt, now, lastUpdatedAt, deletedAt, 2L, 3L, "comment", 4L
             );
             Notification savedNotification = sut.save(notification);
 

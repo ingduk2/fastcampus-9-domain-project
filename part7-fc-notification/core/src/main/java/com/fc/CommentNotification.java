@@ -11,6 +11,7 @@ public class CommentNotification extends Notification {
     private final Long postId;
     private final Long writerId;
     private final String comment;
+    private final Long commentId;
 
     public CommentNotification(
             String id,
@@ -22,11 +23,12 @@ public class CommentNotification extends Notification {
             Instant deletedAt,
             Long postId,
             Long writerId,
-            String comment
+            String comment, Long commentId
     ) {
         super(id, userId, type, occurredAt, createdAt, lastUpdatedAt, deletedAt);
         this.postId = postId;
         this.writerId = writerId;
         this.comment = comment;
+        this.commentId = commentId;
     }
 }
